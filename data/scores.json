@@ -1,0 +1,17 @@
+[
+  {
+    "player": "Alan",
+    "score": 1200,
+    "game": "Space Blaster"
+  },
+  {
+    "player": "Luna",
+    "score": 950,
+    "game": "Pixel Racer"
+  },
+  {
+    "player": "Arky",
+    "score": "8000",
+    "game": "Borderlands 4"
+  }
+]

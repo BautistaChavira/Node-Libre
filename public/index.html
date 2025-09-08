@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <ul id="leaderboard"></ul>
+
+    <form id="scoreForm">
+        <input type="text" name="player" placeholder="Jugador" required>
+        <input type="text" name="game" placeholder="Juego" required>
+        <input type="number" name="score" placeholder="Puntaje" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const list = document.getElementById('leaderboard');
+        const form = document.getElementById('scoreForm');
+
+        function loadScores() {
+        fetch('/api/scores')
+            .then(res => res.json())
+            .then(data => {
+            list.innerHTML = '';
+            data.forEach(entry => {
+                const li = document.createElement('li');
+                li.textContent = `${entry.player} - ${entry.score} (${entry.game})`;
+                list.appendChild(li);
+            });
+            });
+        }
+
+        form.addEventListener('submit', e => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        fetch('/api/scores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(() => {
+            form.reset();
+            loadScores();
+        });
+        });
+
+        loadScores();
+    </script>
+</body>
+</html>
