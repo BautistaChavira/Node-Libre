@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, 'data', 'scores.json');
 
 app.use(express.static('public'));
@@ -26,4 +26,4 @@ app.post('/api/scores', (req, res) => {
   res.status(201).json({ message: 'Score saved' });
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
